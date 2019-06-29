@@ -29,7 +29,7 @@ app.use(express.static("public"));
 
 
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb: https://mongoswebcraper.herokuapp.com/heroku_b1x2pldp";
 
 mongoose.connect(MONGODB_URI);
 
