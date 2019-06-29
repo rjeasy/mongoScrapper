@@ -49,21 +49,25 @@ db.once("openUri", function() {
 // Routes
 // ======
 
-// A GET request to scrape the echojs website
+// A GET request to scrape the website
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with request
-  request("http://www.nytimes.com", function(error, response, html) {
+  request("http://www.digg.com", function(error, response, html) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(html);
     // Now, we grab every h2 within an article tag, and do the following:
-    $("article h2").each(function(i, element) {
+    $("digg-story__content h2").each(function(i, element) {
 
       // Save an empty result object
       var result = {};
+      console.log(element);
+
 
       // Add the text and href of every link, and save them as properties of the result object
-      result.title = $(this).children("a").text();
-      result.link = $(this).children("a").attr("href");
+      result.title = $(element).children().text();
+      result.link = $(element).children().attr("href");
+      result.note = $(element).children().html("itemprop");
+      
 
       // Using our Article model, create a new entry
       // This effectively passes the result object to the entry (and the title and link)
